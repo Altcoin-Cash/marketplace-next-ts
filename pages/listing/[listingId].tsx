@@ -145,22 +145,23 @@ const ListingPage: NextPage = () => {
                 flexDirection: "row",
                 alignItems: "center",
                 gap: 8,
-              <input
+              }}
+              
+            >
+            <input
                 type="text"
-                name="buyAmount"
+                name="bidAmount"
                 className={styles.textInput}
-                onChange={(e) => setBuyAmount(e.target.value)}
+                onChange={(e) => setBidAmount(e.target.value)}
                 placeholder="Amount"
                 style={{ marginTop: 0, marginLeft: 0, width: 128 }}
-              />
-            }}
-            >
+            />
               <input
                 type="text"
                 name="bidAmount"
                 className={styles.textInput}
                 onChange={(e) => setBidAmount(e.target.value)}
-                placeholder="Offerprice"
+                placeholder="Amount"
                 style={{ marginTop: 0, marginLeft: 0, width: 128 }}
               />
               <button
