@@ -231,7 +231,7 @@ async function createBidOrOffer() {
 async function buyNft() {
   try {
     // Simple one-liner for buying the NFT
-    await marketplace?.buyoutListing(listingId, 1);
+    await marketplace?.buyoutListing(listingId, buyAmount);
   } catch (error) {
     console.error(error);
   }

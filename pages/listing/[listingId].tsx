@@ -38,6 +38,9 @@ const ListingPage: NextPage = () => {
   // Store the bid amount the user entered into the bidding textbox
   const [bidAmount, setBidAmount] = useState<string>("");
 
+  // Store the buy amount the user entered into the buying textbox
+  const [buyAmount, setBuyAmount] = useState<string>("");
+
   if (loadingListing) {
     return <div className={styles.loadingOrError}>Loading...</div>;
   }
@@ -58,7 +61,7 @@ const ListingPage: NextPage = () => {
       if (listing?.type === ListingType.Direct) {
         await marketplace?.direct.makeOffer(
           listingId, // The listingId of the listing we want to make an offer for
-          1, // Quantity = 1
+          buyAmount, // Quantity = buyAmount
           NATIVE_TOKENS[ChainId.Polygon].wrapped.address, // Wrapped Ether address on Rinkeby
           bidAmount // The offer amount the user entered
         );
@@ -89,7 +92,7 @@ const ListingPage: NextPage = () => {
       }
 
       // Simple one-liner for buying the NFT
-      await marketplace?.buyoutListing(listingId, 1);
+      await marketplace?.buyoutListing(listingId, buyAmount);
       alert("NFT bought successfully!");
     } catch (error) {
       console.error(error);
@@ -131,6 +134,16 @@ const ListingPage: NextPage = () => {
               alignItems: "center",
             }}
           >
+            
+            <input
+                type="text"
+                name="buyAmount"
+                defaultValue="1"
+                className={styles.textInput}
+                onChange={(e) => setBuyAmount(e.target.value)}
+                placeholder="1"
+                style={{ marginTop: 0, marginLeft: 0, width: 70 }}
+            />
             <button
               style={{ borderStyle: "none" }}
               className={styles.mainButton}
@@ -138,7 +151,7 @@ const ListingPage: NextPage = () => {
             >
               Buy
             </button>
-            <p style={{ color: "grey" }}>|</p>
+
             <div
               style={{
                 display: "flex",
@@ -146,26 +159,9 @@ const ListingPage: NextPage = () => {
                 alignItems: "center",
                 gap: 8,
               }}
+              
             >
-              <input
-                type="text"
-                name="bidAmount"
-                className={styles.textInput}
-                onChange={(e) => setBidAmount(e.target.value)}
-                placeholder="Amount"
-                style={{ marginTop: 0, marginLeft: 0, width: 128 }}
-              />
-              <button
-                className={styles.mainButton}
-                onClick={createBidOrOffer}
-                style={{
-                  borderStyle: "none",
-                  background: "transparent",
-                  width: "fit-content",
-                }}
-              >
-                Make Offer
-              </button>
+
             </div>
           </div>
         </div>
