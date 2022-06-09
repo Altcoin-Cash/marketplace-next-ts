@@ -159,6 +159,8 @@ const ListingPage: NextPage = () => {
                 placeholder="1-100"
                 style={{ marginTop: 0, marginLeft: 0, width: 128 }}
             />
+            <p>
+            </p>
               <input
                 type="text"
                 name="bidAmount"
