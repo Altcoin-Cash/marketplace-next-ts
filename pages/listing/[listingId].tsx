@@ -142,7 +142,7 @@ const ListingPage: NextPage = () => {
                 className={styles.textInput}
                 onChange={(e) => setBuyAmount(e.target.value)}
                 placeholder="1"
-                style={{ marginTop: 0, marginLeft: 0, width: 128 }}
+                style={{ marginTop: 0, marginLeft: 0, width: 20 }}
             />
             <button
               style={{ borderStyle: "none" }}
@@ -167,7 +167,7 @@ const ListingPage: NextPage = () => {
                 className={styles.textInput}
                 onChange={(e) => setBidAmount(e.target.value)}
                 placeholder="Bidprice"
-                style={{ marginTop: 0, marginLeft: 0, width: 128 }}
+                style={{ marginTop: 0, marginLeft: 0, width: 100 }}
               />
               <button
                 className={styles.mainButton}
