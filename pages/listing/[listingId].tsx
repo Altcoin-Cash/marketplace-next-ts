@@ -38,6 +38,9 @@ const ListingPage: NextPage = () => {
   // Store the bid amount the user entered into the bidding textbox
   const [bidAmount, setBidAmount] = useState<string>("");
 
+  // Store the buy amount the user entered into the buying textbox
+  const [buyAmount, setBuyAmount] = useState<string>("");
+
   if (loadingListing) {
     return <div className={styles.loadingOrError}>Loading...</div>;
   }
@@ -58,7 +61,7 @@ const ListingPage: NextPage = () => {
       if (listing?.type === ListingType.Direct) {
         await marketplace?.direct.makeOffer(
           listingId, // The listingId of the listing we want to make an offer for
-          1, // Quantity = 1
+          buyAmount, // Quantity = buyAmount
           NATIVE_TOKENS[ChainId.Polygon].wrapped.address, // Wrapped Ether address on Rinkeby
           bidAmount // The offer amount the user entered
         );
@@ -89,7 +92,7 @@ const ListingPage: NextPage = () => {
       }
 
       // Simple one-liner for buying the NFT
-      await marketplace?.buyoutListing(listingId, 1);
+      await marketplace?.buyoutListing(listingId, buyAmount);
       alert("NFT bought successfully!");
     } catch (error) {
       console.error(error);
@@ -150,10 +153,10 @@ const ListingPage: NextPage = () => {
             >
             <input
                 type="text"
-                name="bidAmount"
+                name="buyAmount"
                 className={styles.textInput}
-                onChange={(e) => setBidAmount(e.target.value)}
-                placeholder="Amount"
+                onChange={(e) => setBuyAmount(e.target.value)}
+                placeholder="1-100"
                 style={{ marginTop: 0, marginLeft: 0, width: 128 }}
             />
               <input
@@ -161,7 +164,7 @@ const ListingPage: NextPage = () => {
                 name="bidAmount"
                 className={styles.textInput}
                 onChange={(e) => setBidAmount(e.target.value)}
-                placeholder="Amount"
+                placeholder="Bidprice"
                 style={{ marginTop: 0, marginLeft: 0, width: 128 }}
               />
               <button
