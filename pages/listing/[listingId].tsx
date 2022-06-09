@@ -134,6 +134,16 @@ const ListingPage: NextPage = () => {
               alignItems: "center",
             }}
           >
+            
+            <input
+                type="text"
+                name="buyAmount"
+                value="1"
+                className={styles.textInput}
+                onChange={(e) => setBuyAmount(e.target.value)}
+                placeholder="1"
+                style={{ marginTop: 0, marginLeft: 0, width: 128 }}
+            />
             <button
               style={{ borderStyle: "none" }}
               className={styles.mainButton}
@@ -151,16 +161,6 @@ const ListingPage: NextPage = () => {
               }}
               
             >
-            <input
-                type="text"
-                name="buyAmount"
-                className={styles.textInput}
-                onChange={(e) => setBuyAmount(e.target.value)}
-                placeholder="1-100"
-                style={{ marginTop: 0, marginLeft: 0, width: 128 }}
-            />
-            <p>
-            </p>
               <input
                 type="text"
                 name="bidAmount"
