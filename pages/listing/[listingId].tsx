@@ -161,26 +161,7 @@ const ListingPage: NextPage = () => {
               }}
               
             >
-              <input
-                type="text"
-                name="bidAmount"
-                className={styles.textInput}
-                onChange={(e) => setBidAmount(e.target.value)}
-                placeholder="Bidprice"
-                style={{ marginTop: 0, marginLeft: 0, width: 100 }}
-              />
-              <button
-                className={styles.mainButton}
-                onClick={createBidOrOffer}
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  alignItems: "center",
-                  gap: 8,
-                }}
-              >
-                Make Offer
-              </button>
+
             </div>
           </div>
         </div>
