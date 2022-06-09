@@ -151,7 +151,7 @@ const ListingPage: NextPage = () => {
             >
               Buy
             </button>
-            <p style={{ color: "grey" }}>|</p>
+
             <div
               style={{
                 display: "flex",
