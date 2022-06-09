@@ -171,9 +171,10 @@ const ListingPage: NextPage = () => {
                 className={styles.mainButton}
                 onClick={createBidOrOffer}
                 style={{
-                  borderStyle: "none",
-                  background: "transparent",
-                  width: "fit-content",
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  gap: 8,
                 }}
               >
                 Make Offer
