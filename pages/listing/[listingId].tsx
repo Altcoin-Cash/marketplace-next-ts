@@ -138,7 +138,7 @@ const ListingPage: NextPage = () => {
             <input
                 type="text"
                 name="buyAmount"
-                value="1"
+                defaultValue="1"
                 className={styles.textInput}
                 onChange={(e) => setBuyAmount(e.target.value)}
                 placeholder="1"
