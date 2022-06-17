@@ -36,10 +36,10 @@ const ListingPage: NextPage = () => {
   );
 
   // Store the bid amount the user entered into the bidding textbox
-  const [bidAmount, setBidAmount] = useState<string>("");
+  const [bidAmount, setBidAmount] = useState<string>("1");
 
   // Store the buy amount the user entered into the buying textbox
-  const [buyAmount, setBuyAmount] = useState<string>("");
+  const [buyAmount, setBuyAmount] = useState<string>("1");
 
   if (loadingListing) {
     return <div className={styles.loadingOrError}>Loading...</div>;
@@ -134,15 +134,14 @@ const ListingPage: NextPage = () => {
               alignItems: "center",
             }}
           >
-            
             <input
-                type="text"
-                name="buyAmount"
-                defaultValue="1"
-                className={styles.textInput}
-                onChange={(e) => setBuyAmount(e.target.value)}
-                placeholder="1"
-                style={{ marginTop: 0, marginLeft: 0, width: 70 }}
+              type="text"
+              name="buyAmount"
+              defaultValue="1"
+              className={styles.textInput}
+              onChange={(e) => setBuyAmount(e.target.value)}
+              placeholder="1"
+              style={{ marginTop: 0, marginLeft: 0, width: 70 }}
             />
             <button
               style={{ borderStyle: "none" }}
@@ -159,10 +158,7 @@ const ListingPage: NextPage = () => {
                 alignItems: "center",
                 gap: 8,
               }}
-              
-            >
-
-            </div>
+            ></div>
           </div>
         </div>
       </div>
