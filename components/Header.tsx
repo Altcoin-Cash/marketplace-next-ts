@@ -21,17 +21,13 @@ export default function Header() {
               style={{ cursor: "pointer" }}
             />
           </Link>
-        </div>
-        <div>
-          <p style={{ marginLeft: 22, marginRight: 22, color: "grey" }}> </p>
-        </div>
-        <div>
-          <Link href="/" passHref role="button">
+
+          <Link href="https://stake.mining.game/" passHref role="button">
             <img
               src={`/stakebanner.gif`}
               alt="Stake your NFTs, earn WATT"
               width={350}
-              style={{ cursor: "pointer" }}
+              style={{ marginLeft: 22, marginRight: 22, cursor: "pointer" }}
             />
           </Link>
         </div>
