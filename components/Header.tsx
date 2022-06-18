@@ -26,8 +26,8 @@ export default function Header() {
             <img
               src={`/stakebanner.gif`}
               alt="Stake your NFTs, earn WATT"
-              width={350}
-              style={{ marginLeft: 22, marginRight: 22, cursor: "pointer" }}
+              width={320}
+              style={{ marginLeft: 80, marginRight: 22, cursor: "pointer" }}
             />
           </Link>
         </div>
