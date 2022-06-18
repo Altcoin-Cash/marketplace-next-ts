@@ -16,7 +16,7 @@ export default function Header() {
           <Link href="/" passHref role="button">
             <img
               src={`/logo.png`}
-              alt="Mining Game Logo"
+              alt="Mining Game NFT Shop"
               width={350}
               style={{ cursor: "pointer" }}
             />
@@ -24,6 +24,14 @@ export default function Header() {
         </div>
       </div>
       <div className={styles.right}>
+        <Link href="https://stake.mining.game/" passHref role="button">
+          <img
+            src={`/stakebanner.gif`}
+            alt="Stake your NFTs, earn WATT"
+            width={320}
+            style={{ marginLeft: 10, marginRight: 80, cursor: "pointer" }}
+          />
+        </Link>
         {address ? (
           <>
             <a
