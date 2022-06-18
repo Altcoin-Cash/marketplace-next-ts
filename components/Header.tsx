@@ -20,8 +20,12 @@ export default function Header() {
               width={350}
               style={{ cursor: "pointer" }}
             />
-            <p style={{ marginLeft: 22, marginRight: 22, color: "grey" }}> </p>
           </Link>
+        </div>
+        <div>
+          <p style={{ marginLeft: 22, marginRight: 22, color: "grey" }}> </p>
+        </div>
+        <div>
           <Link href="/" passHref role="button">
             <img
               src={`/stakebanner.gif`}
