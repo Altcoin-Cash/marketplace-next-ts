@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import styles from "../styles/Home.module.css";
+import styles from "../../styles/Home.module.css";
 import Link from "next/link";
 import {
   MediaRenderer,
@@ -10,6 +10,7 @@ import { useRouter } from "next/router";
 
 const Home: NextPage = () => {
   const router = useRouter();
+  const { nftId } = router.query;
 
   // Connect your marketplace smart contract here (replace this address)
   const marketplace = useMarketplace(
@@ -30,7 +31,7 @@ const Home: NextPage = () => {
           <b>
             {" "}
             <a
-              href="https://mining.game/"
+              href="pages/[nftId]/index.tsx"
               target="_blank"
               rel="noopener noreferrer"
               className={styles.purple}
@@ -51,38 +52,39 @@ const Home: NextPage = () => {
             ) : (
               // Otherwise, show the listings
               <div className={styles.listingGrid}>
-                {listings?.map((listing) => (
-                      <div
-                          key={listing.id}
-                          className={styles.listingShortView}
-                          onClick={() =>
-                              router.push(
-                                  `${listing.asset.id.toNumber()}/listing/${listing.id}`
-                              )
-                          }
-                      >
-                        <MediaRenderer
-                            src={listing.asset.image}
-                            style={{
-                              borderRadius: 16,
-                              // Fit the image to the container
-                              width: "100%",
-                              height: "100%",
-                            }}
-                        />
-                        <h2 className={styles.nameContainer}>
-                          <Link href={`/${listing.asset.id.toNumber()}/listing/${listing.id}`}>
-                            <a className={styles.name}>{listing.asset.name}</a>
-                          </Link>
-                        </h2>
+                {listings
+                  ?.filter((listing) => listing.asset.id.toNumber() === Number(nftId))
+                  .map((listing) => (
+                    <div
+                      key={listing.id}
+                      className={styles.listingShortView}
+                      onClick={() =>
+                        router.push(`/${nftId}/listing/${listing.id}`)
+                      }
+                    >
+                      <MediaRenderer
+                        src={listing.asset.image}
+                        style={{
+                          borderRadius: 16,
+                          // Fit the image to the container
+                          width: "100%",
+                          height: "100%",
+                        }}
+                      />
+                      <h2 className={styles.nameContainer}>
+                        <Link href={`/${nftId}/listing/${listing.id}`}>
+                          <a className={styles.name}>{listing.asset.name}</a>
+                        </Link>
+                      </h2>
 
-                        <p>
-                          <b>{listing.buyoutCurrencyValuePerToken.displayValue}</b>{" "}
-                          {listing.buyoutCurrencyValuePerToken.symbol}
-                        </p>
-                      </div>
-                  )
-                )}
+                      <p>
+                        <b>
+                          {listing.buyoutCurrencyValuePerToken.displayValue}
+                        </b>{" "}
+                        {listing.buyoutCurrencyValuePerToken.symbol}
+                      </p>
+                    </div>
+                  ))}
               </div>
             )
           }
