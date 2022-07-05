@@ -72,7 +72,7 @@ const Home: NextPage = () => {
                         }}
                       />
                       <h2 className={styles.nameContainer}>
-                        <Link href={`/listing/${listing.id}`}>
+                        <Link href={`/${nftId}/listing/${listing.id}`}>
                           <a className={styles.name}>{listing.asset.name}</a>
                         </Link>
                       </h2>
