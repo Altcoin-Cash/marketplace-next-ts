@@ -19,7 +19,7 @@ const ListingPage: NextPage = () => {
   // This means that if the user visits /listing/0 then the listingId will be 0.
   // If the user visits /listing/1 then the listingId will be 1.
   const { listingId, nftId } = router.query as { listingId: string, nftId: string };
-  const showContent = useRef(false);
+  const [showContent, setShowContent] = useState(false);
 
   // Hooks to detect user is on the right network and switch them if they are not
   const networkMismatch = useNetworkMismatch();
@@ -41,10 +41,10 @@ const ListingPage: NextPage = () => {
       if(listing.asset.id.toNumber() !== Number(nftId)) {
         router.push(`/${nftId}`);
       } else {
-        showContent.current = true;
+        setShowContent(true);
       }
     }
-  }, [listing, nftId])
+  }, [listing, nftId, router])
 
   // Store the bid amount the user entered into the bidding textbox
   const [bidAmount, setBidAmount] = useState<string>("1");
@@ -111,7 +111,7 @@ const ListingPage: NextPage = () => {
     }
   }
 
-  return showContent.current ? (
+  return showContent ? (
     <div className={styles.container} style={{}}>
       <div className={styles.listingContainer}>
         <div className={styles.leftListing}>
