@@ -53,7 +53,7 @@ const Home: NextPage = () => {
               // Otherwise, show the listings
               <div className={styles.listingGrid}>
                 {listings
-                  ?.filter((item) => item.asset.id.toNumber() === Number(nftId))
+                  ?.filter((listing) => listing.asset.id.toNumber() === Number(nftId))
                   .map((listing) => (
                     <div
                       key={listing.id}

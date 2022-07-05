@@ -8,7 +8,7 @@ import {
 import { ChainId, ListingType, NATIVE_TOKENS } from "@thirdweb-dev/sdk";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import {useEffect, useRef, useState} from "react";
 import styles from "../../../styles/Home.module.css";
 
 const ListingPage: NextPage = () => {
@@ -18,7 +18,8 @@ const ListingPage: NextPage = () => {
   // De-construct listingId out of the router.query.
   // This means that if the user visits /listing/0 then the listingId will be 0.
   // If the user visits /listing/1 then the listingId will be 1.
-  const { listingId } = router.query as { listingId: string };
+  const { listingId, nftId } = router.query as { listingId: string, nftId: string };
+  const showContent = useRef(false);
 
   // Hooks to detect user is on the right network and switch them if they are not
   const networkMismatch = useNetworkMismatch();
@@ -34,6 +35,16 @@ const ListingPage: NextPage = () => {
     marketplace,
     listingId
   );
+
+  useEffect(() => {
+    if(!!listing) {
+      if(listing.asset.id.toNumber() !== Number(nftId)) {
+        router.push(`/${nftId}`);
+      } else {
+        showContent.current = true;
+      }
+    }
+  }, [listing, nftId])
 
   // Store the bid amount the user entered into the bidding textbox
   const [bidAmount, setBidAmount] = useState<string>("1");
@@ -100,7 +111,7 @@ const ListingPage: NextPage = () => {
     }
   }
 
-  return (
+  return showContent.current ? (
     <div className={styles.container} style={{}}>
       <div className={styles.listingContainer}>
         <div className={styles.leftListing}>
@@ -163,7 +174,7 @@ const ListingPage: NextPage = () => {
         </div>
       </div>
     </div>
-  );
+  ) : <></>;
 };
 
 export default ListingPage;
