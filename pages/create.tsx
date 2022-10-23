@@ -15,7 +15,7 @@ const Create: NextPage = () => {
   const [, switchNetwork] = useNetwork();
   
   // Connect to our marketplace contract via the useContract hook
-  const { contract: marketplace } = useContract<Marketplace>(
+  const { contract: marketplace } = useContract(
     "0xD0804F2cDFC75A308d786DcA78f0DC617d991CaE" // Your marketplace contract address here
   );
 
