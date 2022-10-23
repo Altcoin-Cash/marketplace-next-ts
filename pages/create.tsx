@@ -1,9 +1,9 @@
 import {
-  useMarketplace,
+  useContract,
   useNetwork,
   useNetworkMismatch,
 } from "@thirdweb-dev/react";
-import { NATIVE_TOKEN_ADDRESS, TransactionResult } from "@thirdweb-dev/sdk";
+import { Marketplace, NATIVE_TOKEN_ADDRESS, TransactionResult } from "@thirdweb-dev/sdk";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import styles from "../styles/Home.module.css";
@@ -13,9 +13,9 @@ const Create: NextPage = () => {
   const router = useRouter();
   const networkMismatch = useNetworkMismatch();
   const [, switchNetwork] = useNetwork();
-
-  // Connect to our marketplace contract via the useMarketplace hook
-  const marketplace = useMarketplace(
+  
+  // Connect to our marketplace contract via the useContract hook
+  const { contract: marketplace } = useContract<Marketplace>(
     "0xD0804F2cDFC75A308d786DcA78f0DC617d991CaE" // Your marketplace contract address here
   );
 
