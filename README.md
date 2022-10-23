@@ -11,7 +11,7 @@ By the end, we'll implement the following features:
 
 **Check out the Demo here**: https://marketplace.thirdweb-example.com
 
-## Tools
+## Tools 
 
 - [**thirdweb Marketplace**](https://portal.thirdweb.com/contracts/marketplace): to facilitate the listing of NFTs and enable users to make buy, sell, or make offers on the NFTs on the marketplace.
 - [**thirdweb NFT Collection**](https://portal.thirdweb.com/contracts/nft-collection): to create an ERC721 NFT Collection that we can list onto the marketplace.
