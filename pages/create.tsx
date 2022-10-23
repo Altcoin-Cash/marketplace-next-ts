@@ -49,13 +49,13 @@ const Create: NextPage = () => {
       }
 
       // For Auction Listings:
-      if (listingType.value === "auctionListing") {
-        transactionResult = await createAuctionListing(
-          contractAddress.value,
-          tokenId.value,
-          price.value
-        );
-      }
+     // if (listingType.value === "auctionListing") {
+     //   transactionResult = await createAuctionListing(
+     //     contractAddress.value,
+     //     tokenId.value,
+     //     price.value
+     //   );
+     // }
 
       // If the transaction succeeds, take the user back to the homepage to view their listing!
       if (transactionResult) {
@@ -66,28 +66,6 @@ const Create: NextPage = () => {
     }
   }
 
-  async function createAuctionListing(
-    contractAddress: string,
-    tokenId: string,
-    price: string
-  ) {
-    try {
-      const transaction = await marketplace?.auction.createListing({
-        assetContractAddress: contractAddress, // Contract Address of the NFT
-        buyoutPricePerToken: price, // Maximum price, the auction will end immediately if a user pays this price.
-        currencyContractAddress: NATIVE_TOKEN_ADDRESS, // NATIVE_TOKEN_ADDRESS is the crpyto curency that is native to the network. i.e. Rinkeby ETH.
-        listingDurationInSeconds: 60 * 60 * 24 * 7, // When the auction will be closed and no longer accept bids (1 Week)
-        quantity: 1, // How many of the NFTs are being listed (useful for ERC 1155 tokens)
-        reservePricePerToken: 0, // Minimum price, users cannot bid below this amount
-        startTimestamp: new Date(), // When the listing will start
-        tokenId: tokenId, // Token ID of the NFT.
-      });
-
-      return transaction;
-    } catch (error) {
-      console.error(error);
-    }
-  }
 
   async function createDirectListing(
     contractAddress: string,
