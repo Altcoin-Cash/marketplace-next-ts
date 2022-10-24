@@ -3,7 +3,13 @@ import {
   useNetwork,
   useNetworkMismatch,
 } from "@thirdweb-dev/react";
-import { Marketplace, NATIVE_TOKEN_ADDRESS, TransactionResult } from "@thirdweb-dev/sdk";
+//import { Marketplace, NATIVE_TOKEN_ADDRESS, TransactionResult } from "@thirdweb-dev/sdk";
+import {
+  ChainId,
+  NATIVE_TOKEN_ADDRESS,
+  TransactionResult,
+} from "@thirdweb-dev/sdk";
+
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import styles from "../styles/Home.module.css";
