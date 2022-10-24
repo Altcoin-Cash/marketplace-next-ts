@@ -3,9 +3,9 @@ import {
   useNetwork,
   useNetworkMismatch,
 } from "@thirdweb-dev/react";
-//import { Marketplace, NATIVE_TOKEN_ADDRESS, TransactionResult } from "@thirdweb-dev/sdk";
 import {
   ChainId,
+  Marketplace,
   NATIVE_TOKEN_ADDRESS,
   TransactionResult,
 } from "@thirdweb-dev/sdk";
@@ -22,7 +22,8 @@ const Create: NextPage = () => {
   
   // Connect to our marketplace contract via the useContract hook
   const { contract: marketplace } = useContract(
-    "0xD0804F2cDFC75A308d786DcA78f0DC617d991CaE" // Your marketplace contract address here
+    "0xD0804F2cDFC75A308d786DcA78f0DC617d991CaE", // Your marketplace contract address here
+    "marketplace"
   );
 
   // This function gets called when the form is submitted.
