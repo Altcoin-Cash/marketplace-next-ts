@@ -57,7 +57,7 @@ const Home: NextPage = () => {
                           className={styles.listingShortView}
                           onClick={() =>
                               router.push(
-                                  `${listing.asset.id.toNumber()}/listing/${listing.id}`
+                                  `${listing.asset.id}/listing/${listing.id}`
                               )
                           }
                       >
@@ -71,7 +71,7 @@ const Home: NextPage = () => {
                             }}
                         />
                         <h2 className={styles.nameContainer}>
-                          <Link href={`/${listing.asset.id.toNumber()}/listing/${listing.id}`}>
+                          <Link href={`/${listing.asset.id}/listing/${listing.id}`}>
                             <a className={styles.name}>{listing.asset.name}</a>
                           </Link>
                         </h2>

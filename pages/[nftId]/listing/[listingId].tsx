@@ -38,7 +38,7 @@ const ListingPage: NextPage = () => {
 
   useEffect(() => {
     if(!!listing) {
-      if(listing.asset.id.toNumber() !== Number(nftId)) {
+      if(listing.asset.id !== nftId) {
         router.push(`/${nftId}`);
       } else {
         setShowContent(true);
