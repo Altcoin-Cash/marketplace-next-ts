@@ -1,15 +1,15 @@
 import {
   MediaRenderer,
+  useMarketplace,
   useNetwork,
   useNetworkMismatch,
   useListing,
-  useContract,
 } from "@thirdweb-dev/react";
-import { ChainId, ListingType, Marketplace, NATIVE_TOKENS } from "@thirdweb-dev/sdk";
+import { ChainId, ListingType, NATIVE_TOKENS } from "@thirdweb-dev/sdk";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
-import { useState } from "react";
-import styles from "../../styles/Home.module.css";
+import {useEffect, useRef, useState} from "react";
+import styles from "../../../styles/Home.module.css";
 
 const ListingPage: NextPage = () => {
   // Next JS Router hook to redirect to other pages and to grab the query from the URL (listingId)
@@ -18,16 +18,16 @@ const ListingPage: NextPage = () => {
   // De-construct listingId out of the router.query.
   // This means that if the user visits /listing/0 then the listingId will be 0.
   // If the user visits /listing/1 then the listingId will be 1.
-  const { listingId } = router.query as { listingId: string };
+  const { listingId, nftId } = router.query as { listingId: string, nftId: string };
+  const [showContent, setShowContent] = useState(false);
 
   // Hooks to detect user is on the right network and switch them if they are not
   const networkMismatch = useNetworkMismatch();
   const [, switchNetwork] = useNetwork();
 
   // Initialize the marketplace contract
-  const { contract: marketplace } = useContract(
-    "0x277C0FB19FeD09c785448B8d3a80a78e7A9B8952", // Your marketplace contract address here
-    "marketplace"
+  const marketplace = useMarketplace(
+    "0xD0804F2cDFC75A308d786DcA78f0DC617d991CaE" // Your marketplace contract address here
   );
 
   // Fetch the listing from the marketplace contract
@@ -36,8 +36,21 @@ const ListingPage: NextPage = () => {
     listingId
   );
 
+  useEffect(() => {
+    if(!!listing) {
+      if(listing.asset.id !== nftId) {
+        router.push(`/${nftId}`);
+      } else {
+        setShowContent(true);
+      }
+    }
+  }, [listing, nftId, router])
+
   // Store the bid amount the user entered into the bidding textbox
-  const [bidAmount, setBidAmount] = useState<string>("");
+  const [bidAmount, setBidAmount] = useState<string>("1");
+
+  // Store the buy amount the user entered into the buying textbox
+  const [buyAmount, setBuyAmount] = useState<string>("1");
 
   if (loadingListing) {
     return <div className={styles.loadingOrError}>Loading...</div>;
@@ -59,8 +72,8 @@ const ListingPage: NextPage = () => {
       if (listing?.type === ListingType.Direct) {
         await marketplace?.direct.makeOffer(
           listingId, // The listingId of the listing we want to make an offer for
-          1, // Quantity = 1
-          NATIVE_TOKENS[ChainId.Rinkeby].wrapped.address, // Wrapped Ether address on Rinkeby
+          buyAmount, // Quantity = buyAmount
+          NATIVE_TOKENS[ChainId.Polygon].wrapped.address, // Wrapped Ether address on Rinkeby
           bidAmount // The offer amount the user entered
         );
       }
@@ -90,7 +103,7 @@ const ListingPage: NextPage = () => {
       }
 
       // Simple one-liner for buying the NFT
-      await marketplace?.buyoutListing(listingId, 1);
+      await marketplace?.buyoutListing(listingId, buyAmount);
       alert("NFT bought successfully!");
     } catch (error) {
       console.error(error);
@@ -98,7 +111,7 @@ const ListingPage: NextPage = () => {
     }
   }
 
-  return (
+  return showContent ? (
     <div className={styles.container} style={{}}>
       <div className={styles.listingContainer}>
         <div className={styles.leftListing}>
@@ -132,6 +145,15 @@ const ListingPage: NextPage = () => {
               alignItems: "center",
             }}
           >
+            <input
+              type="text"
+              name="buyAmount"
+              defaultValue="1"
+              className={styles.textInput}
+              onChange={(e) => setBuyAmount(e.target.value)}
+              placeholder="1"
+              style={{ marginTop: 0, marginLeft: 0, width: 70 }}
+            />
             <button
               style={{ borderStyle: "none" }}
               className={styles.mainButton}
@@ -139,7 +161,7 @@ const ListingPage: NextPage = () => {
             >
               Buy
             </button>
-            <p style={{ color: "grey" }}>|</p>
+
             <div
               style={{
                 display: "flex",
@@ -147,32 +169,12 @@ const ListingPage: NextPage = () => {
                 alignItems: "center",
                 gap: 8,
               }}
-            >
-              <input
-                type="text"
-                name="bidAmount"
-                className={styles.textInput}
-                onChange={(e) => setBidAmount(e.target.value)}
-                placeholder="Amount"
-                style={{ marginTop: 0, marginLeft: 0, width: 128 }}
-              />
-              <button
-                className={styles.mainButton}
-                onClick={createBidOrOffer}
-                style={{
-                  borderStyle: "none",
-                  background: "transparent",
-                  width: "fit-content",
-                }}
-              >
-                Make Offer
-              </button>
-            </div>
+            ></div>
           </div>
         </div>
       </div>
     </div>
-  );
+  ) : <></>;
 };
 
 export default ListingPage;
